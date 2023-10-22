@@ -1,6 +1,6 @@
 <template>
     <div class="w-full h-16 dark:bg-gray-900  bg-white border-b-2  flex justify-between py-2 px-2 sm:px-10 items-center">
-    <nuxt-link to="/"> <img src="~/assets/logo.png" width="200" alt=""></nuxt-link>   
+    <nuxt-link to="/"> <img src="/logo.png" width="200" alt=""></nuxt-link>   
 
         <div class="flex items-center gap-4">
            <ul class="sm:flex gap-4 mr-10 hidden">
