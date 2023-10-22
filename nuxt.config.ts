@@ -2,6 +2,17 @@
 export default defineNuxtConfig({
   app:{
     head:{
+      title:"ShareLife",
+      meta:[
+        {
+           name:"viewport",
+          content:"width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
+        },
+        {
+          name:"description",
+          content:"You can share everything in here"
+        }
+      ],
       link:[{
         rel:"icon",
          type:"image/png",
