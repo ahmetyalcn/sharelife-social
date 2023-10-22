@@ -1,11 +1,11 @@
 <template>
-    <div class="w-full h-16 dark:bg-gray-900  bg-white border-b-2  flex justify-between py-2 px-2 sm:px-10 items-center">
+    <div class="w-full h-16 dark:bg-gray-900  bg-white border-b-2 border-pink-700  flex justify-between py-2 px-2 sm:px-10 items-center">
     <nuxt-link to="/"> <img src="/logo.png" width="200" alt=""></nuxt-link>   
 
         <div class="flex items-center gap-4">
            <ul class="sm:flex gap-4 mr-10 hidden">
-             <nuxt-link class="font-semibold border-2 p-2 border-gray-700 rounded-md" to="/">Home</nuxt-link>
-    <nuxt-link class="font-semibold border-2 p-2 border-gray-700 rounded-md" :to="'/profile/'+store.profile.id">Profile</nuxt-link>
+             <nuxt-link class="font-semibold border-2 p-2 border-gray-700 rounded-md bg-pink-700 text-white" to="/">Home</nuxt-link>
+    <nuxt-link class="font-semibold border-2 p-2 border-gray-700 rounded-md bg-pink-700 text-white" :to="'/profile/'+store.profile.id">Profile</nuxt-link>
            </ul>
            
             <div v-if="store.isLogged" class="flex sm:items-center border-2 rounded-md sm:py-1 sm:px-5 border-pink-800 dark:border-gray-700 gap-2">

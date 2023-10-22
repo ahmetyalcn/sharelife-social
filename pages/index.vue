@@ -3,7 +3,7 @@
     <div class="grid md:grid-cols-3 gap-4">
         
         <div></div>
-        <ul class="border-l-2 border-r-2 ">
+        <ul class="sm:border-l-2 sm:border-r-2 border-pink-700">
           
             <SharePost />
             <UModal v-model="isOpen"  :ui="{ base: 'h-full flex md:w-1/2', container:'items-center' }">
@@ -37,7 +37,7 @@
                 </UCard>
             </UModal>
 
-            <li v-for="(post, index) in store.allPosts" :key="index" class=" my-2 border-b-2">
+            <li v-for="(post, index) in store.allPosts" :key="index" class=" my-2 border-b-2 border-pink-700">
                 <div class="p-4">
                     <div class="flex justify-start gap-2">
                         <UAvatar :src="post.profiles.avatar_url" />

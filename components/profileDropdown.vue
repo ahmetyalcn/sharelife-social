@@ -31,7 +31,7 @@ const items = computed(()=>(
 </script>
 
 <template>
-  <UDropdown :items="items" width="w-full" mode="click" :ui="{ width: 'w-auto', item: { disabled: 'cursor-text select-text' } }" :popper="{ placement: 'bottom-start'}">
+  <UDropdown :items="items" width="w-full" mode="hover" :ui="{ width: 'w-auto', item: { disabled: 'cursor-text select-text' } }" :popper="{ placement: 'bottom-start'}">
     
     <UAvatar size="md" :src="props.profile.avatar_url" />
 

@@ -75,10 +75,9 @@ onMounted(async()=>{
         .from('avatars')
         .upload(`avatars/${file.name}_${Date.now()}`, file);
       if (data) {
-        console.log('Avatar uploaded:', data);
         profile.value.avatar_url = "https://aravmhezjrpmloycmqbt.supabase.co/storage/v1/object/public/avatars/"+data.path; 
       } else {
-        console.error('Avatar upload error:', error);
+
       }
     }
   }

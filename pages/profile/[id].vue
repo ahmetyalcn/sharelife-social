@@ -32,8 +32,8 @@
             </UModal>
         <div class="grid md:grid-cols-6 gap-4">
             <div class=""></div>
-            <div class="md:col-start-2 md:col-span-4">
-                <section class="flex gap-10 border-2 m-2 rounded-md p-2 dark:border-gray-700 items-center w-full">
+            <div class="md:col-start-2 md:col-span-4 p-2">
+                <section class="flex gap-10 border-2  rounded-t-lg p-2 dark:border-gray-700 items-center w-full">
                     <img :src="data.avatar_url" class="rounded-full border-2 border-pink-700 object-cover dark:border-gray-700 h-[30vw] w-[30vw] max-w-[200px] max-h-[200px]" alt="">
                     <ul class="gap-3 flex flex-col">
                         <li>
