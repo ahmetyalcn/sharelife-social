@@ -4,6 +4,7 @@ export default defineNuxtConfig({
     '@': resolve(__dirname, '/'),
 
   },
+
   app:{
     head:{
       title:"ShareLife",
