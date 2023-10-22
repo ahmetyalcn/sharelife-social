@@ -31,7 +31,6 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@nuxtjs/supabase',
     '@pinia/nuxt',
-    "@nuxtjs/tailwindcss"
   ],
   supabase:{
     redirectOptions: {
