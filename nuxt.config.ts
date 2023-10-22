@@ -4,7 +4,6 @@ export default defineNuxtConfig({
     '@': resolve(__dirname, '/'),
 
   },
-
   app:{
     head:{
       title:"ShareLife",
@@ -27,7 +26,13 @@ export default defineNuxtConfig({
     }
   },
   devtools:{enabled:false},
-  modules: ['@nuxt/ui','@nuxtjs/color-mode','@nuxtjs/supabase','@pinia/nuxt'],
+  modules: [
+    '@nuxt/ui',
+    '@nuxtjs/color-mode',
+    '@nuxtjs/supabase',
+    '@pinia/nuxt',
+    "@nuxtjs/tailwindcss"
+  ],
   supabase:{
     redirectOptions: {
     login: '/login',
