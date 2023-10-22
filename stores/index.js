@@ -36,26 +36,18 @@ const allPosts = ref([])
       if (data.user) {
         isLogged.value = true;
         getUser().then((res) => {
-          toast.add({ title: 'Successfully logged in!', color: "green" })
+          toast.add({ title: 'Successfully logged in!',timeout: 1000, color: "green" })
           if (!profile.value.username) {
-
             router.push("/profile/edit")
           } else {
             router.push("/")
           }
         })
-
-
-
-
-
-
-
       } else {
         toast.add({ title: error.message, color: "red" })
       }
     } catch (error) {
-      toast.add({ title: 'Login information is not correct', color: "red" })
+      toast.add({ title: 'Login information is not correct',timeout: 1000, color: "red" })
     }
 
 
@@ -97,7 +89,7 @@ async function getUserById(id){
         .then(res => {
           profile.value = {}
           isLogged.value = false;
-          toast.add({ title: 'Log out Successfully!', color: "green" })
+          toast.add({ title: 'Log outed!',timeout: 1000, color: "green" })
         })
         .then(res => router.push("/login"));
     } catch (error) {

@@ -25,22 +25,22 @@ async function submit(event: FormSubmitEvent<any>) {
 </script>
 <template>
     <div class="flex justify-center items-start pt-10 h-screen">
-        <div class="w-full max-w-xl h-auto border-2 rounded-md p-5">
+        <div class="w-full max-w-xl h-auto sm:border-2 border-pink-400 rounded-md p-5">
             <h1 class="text-3xl font-bold">Register</h1>
             <br>
             <UForm :validate="validate" :state="state" @submit="submit">
                 <UFormGroup label="Email" name="email">
-                    <UInput v-model="state.email" />
+                    <UInput color="pink" v-model="state.email" />
                 </UFormGroup>
                 <UFormGroup label="Password" name="password" class="text-3xl">
-                    <UInput v-model="state.password" type="password" />
+                    <UInput color="pink" v-model="state.password" type="password" />
                 </UFormGroup>
                 <br>
-                <UButton type="submit">
+                <UButton color="pink" type="submit">
                     Submit
                 </UButton>
             </UForm>
-            <p class="text-sm text-gray-400 font-normal text-center p-5">Already registered? <nuxt-link class="text-black font-semibold" to="/login">Log in</nuxt-link></p>
+            <p class="text-sm text-gray-400 font-normal text-center p-5">Already registered? <nuxt-link class="text-black dark:text-white font-semibold" to="/login">Log in</nuxt-link></p>
         </div>
 
     </div>
