@@ -9,6 +9,9 @@ export default defineNuxtConfig({
       title:"ShareLife",
       meta:[
         {
+           hid: 'og:image', property: 'og:image', content: "/logo.png"
+        },
+        {
            name:"viewport",
           content:"width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1 user-scalable=no"
         },
