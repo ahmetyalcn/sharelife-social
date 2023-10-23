@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-16 dark:bg-gray-900  bg-white border-b-2 border-pink-700  flex justify-between py-2 px-2 sm:px-10 items-center">
+    <div class="w-full h-16 dark:bg-gray-900  bg-white  border-pink-700  flex justify-between py-2 px-2 sm:px-10 items-center">
     <nuxt-link to="/"> <img src="/logo.png" width="200" alt=""></nuxt-link>   
 
         <div class="flex items-center gap-4">
@@ -33,7 +33,11 @@ const store = useMainStore()
 
 const colorMode = useColorMode()
 
-
+const supabase = useSupabaseClient()
+onMounted(async()=>{
+    const { data: { session }, } = await supabase.auth.getSession()
+   
+})
 
 const isDark = computed({
     get() {
@@ -43,10 +47,6 @@ const isDark = computed({
         colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
     }
 })
-const supabase = useSupabaseClient()
-onMounted(async()=>{
-    const { data: { session }, } = await supabase.auth.getSession()
-   
-})
+
 
 </script>

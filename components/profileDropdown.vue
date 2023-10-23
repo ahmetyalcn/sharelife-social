@@ -2,6 +2,8 @@
 const props = defineProps(
    ["profile","signOut"]
 )
+
+
 const items = computed(()=>(
   [
   [{
@@ -9,19 +11,14 @@ const items = computed(()=>(
     slot: 'account',
     disabled: true
   }], [{
-    label: 'Profile settings',
+    label: 'Settings',
     to:"/profile/edit",
     icon: 'i-heroicons-cog-8-tooth'
   }], [{
-    label: 'Documentation',
-    icon: 'i-heroicons-book-open'
-  }, {
-    label: 'Changelog',
-    icon: 'i-heroicons-megaphone'
-  }, {
-    label: 'Status',
-    icon: 'i-heroicons-signal'
-  }], [{
+    label: 'Profile',
+    to:'/profile/'+(props.profile.id),
+    icon: 'i-heroicons-user'
+  }],[{
     label: 'Sign out',
     icon: 'i-heroicons-arrow-left-on-rectangle',
   }]

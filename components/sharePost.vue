@@ -23,11 +23,12 @@ async function sendData() {
 
         if (data) {
             isOpen.value = false
-            toast.add({ title: "Successfully posted", timeout: 1000, color: "green" })
-            store.getAllPosts()
             post.shared_text = ""
             post.shared_photo = ""
             pcPath.value = ""
+            toast.add({ title: "Successfully posted", timeout: 1000, color: "green" })
+            console.log('data', data)
+            store.getAllPosts()
         }
     }else{
         toast.add({ title: "Text should be minimum 10 characters", timeout: 1000, color: "red" })
@@ -70,7 +71,7 @@ async function uploadPhoto(event) {
         <UModal v-model="isOpen" :ui="{ base: ' justify-center flex md:w-1/2', container: 'items-center' }">
             <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
 
-                <div class="p-2 border-b-2 border-pink-800 flex flex-col items-end">
+                <div class="p-2 border-pink-800 flex flex-col items-end">
 
                     <UInput v-model="post.shared_text" class="w-full mb-2" color="pink" icon="i-heroicons-pencil-square"
                         placeholder="Write something.." size="lg" />
@@ -78,9 +79,8 @@ async function uploadPhoto(event) {
                     <UInput @change="uploadPhoto" v-model="pcPath" type="file" color="pink" class="w-full" size="lg"
                         placeholder="Add new note.." />
                     <UButton :loading="uploading"
-                   
-                        class="bg-brown dark:text-white dark:bg-pink-700 hover:bg-pink-400 bg-black text-white m-1 px-10 w-auto text-center "
-                        @click="sendData">{{ uploading ? "Uploading.." : "Share" }}</UButton>
+                        class=" dark:text-white dark:bg-pink-700 hover:bg-pink-400 bg-pink-700 text-white m-1 px-10 w-auto text-center "
+                        @click="sendData">{{ uploading ? "Uploading.." : "Confirm" }}</UButton>
                 </div>
 
             </UCard>
