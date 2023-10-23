@@ -6,12 +6,15 @@ const uploading = ref(false)
 const pcPath = ref("")
 const isOpen = ref(false)
 
-const { data: { session }, } = await supabase.auth.getSession()
+try{
+   const { data: { session }, } = await supabase.auth.getSession()
+ post.profile_id = session.user.id
+}catch(error){}
 
 const post = reactive({
     shared_text: "",
     shared_photo: "",
-    profile_id: session.user.id
+    profile_id: ""
 });
 
 async function sendData() {
@@ -66,7 +69,7 @@ async function uploadPhoto(event) {
 <template>
     <div>
 
-        <img src="/newpost.svg" width="60" alt="" class="right-5 fixed bottom-5 cursor-pointer"
+        <img v-if="store.profile.id" src="/newpost.svg" width="60" alt="" class="right-5 fixed bottom-5 cursor-pointer bg-white rounded-full border border-pink-700"
             @click="isOpen = true">
         <UModal v-model="isOpen" :ui="{ base: ' justify-center flex md:w-1/2', container: 'items-center' }">
             <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">

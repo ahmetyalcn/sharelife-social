@@ -26,7 +26,6 @@ export const useMainStore = defineStore("main", () => {
       .order('shared_date', { ascending: false })
     if (data) {
       allPosts.value = data
-      console.log('allPosts', allPosts.value)
     }
 
   }

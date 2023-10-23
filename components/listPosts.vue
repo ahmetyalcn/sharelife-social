@@ -23,7 +23,7 @@
                             @click="$props.openPostModal(post)" :src="post.shared_photo" alt="">
 
                         <div class="flex items-center justify-between text-sm text-gray-600 dark:text-gray-300 mt-2">
-                            <p  v-if="!!post.likes.find(like => like.profile_id ===session.user.id)"
+                            <p  v-if="!!post.likes.find(like => like.profile_id ===session?.user.id)"
                                 @click="unlikePost(post)"
                                 class="bg-pink-700 border-2 text-white rounded-full w-auto p-2 cursor-pointer h-8 flex justify-center items-center"><i
                                     class="i-heroicons-hand-thumb-up  text-2xl"></i>&nbsp;{{ post.likes.length }}</p>
@@ -34,6 +34,7 @@
                             </p>
                             <p>{{ formatDate(post.shared_date) }}</p>
                         </div>
+
                     </div>
 
                 </div>
@@ -45,10 +46,9 @@
 <script setup >
 const posts = ref([])
 const store = useMainStore()
-
+const toast = useToast()
 watch(()=>store.allPosts ,async(all)=> {
    posts.value = all;
-console.log('posts.value', posts.value)
 });   
 
 
@@ -56,17 +56,20 @@ const supabase = useSupabaseClient()
 const { data: { session }, } = await supabase.auth.getSession();
 
 const likePost = async(post)=>{
-   
+   if(session?.user){
     const  {data, error} = await supabase
         .from("likes")
         .insert({
             profile_id:session.user.id,
             post_id: post.id
         });
-
-       
             post.likes.push({ profile_id: session.user.id });
-            console.log('posts.value', posts.value)
+        
+   }else{
+    toast.add({ title: 'You must to login for like this content', timeout: 1000, color: "blue" })
+
+   }
+
         
 }
 const unlikePost = async(post)=>{
