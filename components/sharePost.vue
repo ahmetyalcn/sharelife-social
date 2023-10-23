@@ -6,15 +6,14 @@ const uploading = ref(false)
 const pcPath = ref("")
 const isOpen = ref(false)
 
-try{
+
    const { data: { session }, } = await supabase.auth.getSession()
- post.profile_id = session.user.id
-}catch(error){}
+
 
 const post = reactive({
     shared_text: "",
     shared_photo: "",
-    profile_id: ""
+    profile_id: session?.user.id
 });
 
 async function sendData() {
