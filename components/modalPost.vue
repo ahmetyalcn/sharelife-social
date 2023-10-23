@@ -20,18 +20,24 @@
                                     <span> {{ $props.clickedPost.shared_text }}</span>
                                     <img class=" w-full border-2 h-full max-h-[400px] mt-4"
                                        :src="$props.clickedPost.shared_photo" alt="">
+                                 
                                 </div>
 
                             </div>
                            
                         </div>
                     </template>
-
+                    <div class="flex justify-between text-sm text-gray-600 dark:text-gray-300 mt-2">
+                            <p></p>
+                            <p>{{ formatDate($props.clickedPost.shared_date) }}</p>
+                        </div>
                    
                 </UCard>
             </UModal>
     </div>
 </template>
 <script setup>
+
+const {formatDate }= useUtils()
 defineProps(["isOpen","clickedPost"])
 </script>

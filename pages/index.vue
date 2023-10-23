@@ -17,7 +17,9 @@
 const store = useMainStore()
 const clickedPost = ref({})
 const isOpen = ref(false)
-
+onMounted(() => {
+    console.log('store.getAllPosts()', store.getAllPosts())
+})
 const openPostModal = (post) => {
     clickedPost.value = post
     isOpen.value = true

@@ -52,7 +52,7 @@
                       <ul class="w-full sm:w-1/2 border-l-2 border-r-2 dark:border-gray-700">
 
                     <li v-for="(post, index) in data.posts" :key="index" class=" my-2 border-b-2 dark:border-gray-700">
-                        <div class="p-4">
+                        <div class="py-2 px-4">
                             <div class="flex justify-start gap-2">
                                 <UAvatar :src="data.avatar_url" />
 
@@ -64,6 +64,10 @@
                                 <img v-if="post.shared_photo"
                                     class="rounded-lg w-full border-2 mt-4 object-cover h-60 cursor-pointer"
                                     @click="openPostModal(post)" :src="post.shared_photo" alt="">
+                                    <div class="flex justify-between text-sm text-gray-600 dark:text-gray-300 mt-2">
+                            <p></p>
+                            <p>{{ formatDate(post.shared_date) }}</p>
+                        </div>
                             </div>
 
                         </div>
@@ -86,7 +90,7 @@
 const store = useMainStore()
 const route = useRoute()
 const data = await store.getUserById(route.params.id)
-
+const {formatDate}= useUtils()
 const clickedPost = ref({})
 const isOpen = ref(false)
 
