@@ -2,7 +2,7 @@
     <div class="flex gap-2 px-4 sm:py-2 overflow-x-auto w-screen md:w-auto mb-2">
         <div class="relative border-r-2 pr-2 border-pink-700 cursor-pointer">
             <UAvatar class=" border-2 relative border-pink-700 box-content"  size="xl" :src="store.profile.avatar_url" /> 
-            <img src="newstory.svg" class="w-6 border-2 border-pink-700 bg-pink-700 rounded-full absolute bottom-3 right-1" alt="">
+            <img src="/newstory.svg" class="w-6 border-2 border-pink-700 bg-pink-700 rounded-full absolute bottom-3 right-1" alt="">
             
         </div>
        
