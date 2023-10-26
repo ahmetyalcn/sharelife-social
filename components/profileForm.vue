@@ -1,34 +1,3 @@
-<template>
-  <div class="flex justify-center items-start pt-10 h-screen">
-    <div class="w-full max-w-xl h-auto border-2 rounded-md p-5">
-      <h1 class="text-3xl font-bold">Update your information</h1>
-      <br />
-      <UForm @submit="submit">
-        <UFormGroup label="Username" name="username" class="text-3xl">
-          <UInput v-model="profile.username" type="text" />
-        </UFormGroup>
-        <UFormGroup label="Full name" name="fullname" class="text-3xl">
-          <UInput v-model="profile.full_name" type="text" />
-        </UFormGroup>
-        <UFormGroup label="Avatar Url" name="avatarUrl" class="text-ll">
-          <input type="file" @change="uploadAvatar" />
-        </UFormGroup>
-        <UFormGroup label="Website" name="website" class="text-3xl">
-          <UInput v-model="profile.website" type="text" />
-        </UFormGroup>
-
-        <br />
-        <UButton color="pink"
-          class=" dark:text-white dark:bg-pink-700 hover:bg-pink-400 bg-pink-700 text-white m-1 px-10 w-auto text-center"
-          :loading="uploading" type="submit">{{ uploading ? "Uploading.." : "Share" }} </UButton>
-      </UForm>
-      <p class="text-sm text-gray-400 font-normal text-center p-5">
-        You want to update later? <nuxt-link class="text-black font-semibold" to="/">Skip</nuxt-link>
-      </p>
-    </div>
-  </div>
-</template>
-  
 <script setup>
 const supabase = useSupabaseClient();
 const store = useMainStore();
@@ -73,7 +42,6 @@ async function submit(event) {
 
 async function uploadAvatar(event) {
   if (uploading.value) {
-    // Başka bir yükleme işlemi devam ediyor, yeni bir işlem başlatmayın
     return;
   }
 
@@ -121,3 +89,35 @@ async function uploadAvatar(event) {
 
 </script>
   
+<template>
+  <div class="flex justify-center items-start pt-10 h-screen">
+    <div class="w-full max-w-xl h-auto border-2 rounded-md p-5">
+      <h1 class="text-3xl font-bold">Update your information</h1>
+      <br />
+      <UForm @submit="submit">
+        <UFormGroup label="Username" name="username" class="text-3xl">
+          <UInput v-model="profile.username" type="text" />
+        </UFormGroup>
+        <UFormGroup label="Full name" name="fullname" class="text-3xl">
+          <UInput v-model="profile.full_name" type="text" />
+        </UFormGroup>
+        <UFormGroup label="Avatar Url" name="avatarUrl" class="text-ll">
+          <input type="file" @change="uploadAvatar" />
+        </UFormGroup>
+        <UFormGroup label="Website" name="website" class="text-3xl">
+          <UInput v-model="profile.website" type="text" />
+        </UFormGroup>
+
+        <br />
+        <UButton color="pink"
+          class=" dark:text-white dark:bg-pink-700 hover:bg-pink-400 bg-pink-700 text-white m-1 px-10 w-auto text-center"
+          :loading="uploading" type="submit">{{ uploading ? "Uploading.." : "Share" }} </UButton>
+      </UForm>
+      <p class="text-sm text-gray-400 font-normal text-center p-5">
+        You want to update later? <nuxt-link class="text-black font-semibold" to="/">Skip</nuxt-link>
+      </p>
+    </div>
+  </div>
+</template>
+  
+

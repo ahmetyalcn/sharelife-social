@@ -1,27 +1,24 @@
-<template>
-    <div class="grid md:grid-cols-3 gap-4">
+<script setup >
+const store = useMainStore()
+
+
+onMounted(async() => {
+  await store.getAllPosts()
+})
+
+</script>
+<template >
+    <div class="grid md:grid-cols-3 gap-4" >
 
         <div></div>
-        <div class="">
+        <div class="" >
             <Stories :posts="store.allPosts" />
-            <ListPosts  :openPostModal="openPostModal"/>
+            <ListPosts/>
             <SharePost />
-            <ModalPost :clickedPost="clickedPost" :isOpen="isOpen" />
+            <ModalPost  />
         </div>
         <div>
 
         </div>
     </div>
 </template>
-<script setup >
-const store = useMainStore()
-const clickedPost = ref({})
-const isOpen = ref(false)
-onMounted(async() => {
-  await store.getAllPosts()
-})
-const openPostModal = (post) => {
-    clickedPost.value = post
-    isOpen.value = true
-}
-</script>

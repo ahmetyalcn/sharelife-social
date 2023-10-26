@@ -89,11 +89,17 @@
 <script setup>
 const store = useMainStore()
 const route = useRoute()
-const data = await store.getUserById(route.params.id)
+const data = ref({})
+store.getUserById(route.params.id).then((res)=>{
+    data.value = res;
+})
 const {formatDate}= useUtils()
 const clickedPost = ref({})
 const isOpen = ref(false)
-
+onActivated(async()=>{
+    const updated = await store.getUserById(route.params.id)
+    data.value = updated;
+ });
 const openPostModal = (post) => {
     clickedPost.value = post
     isOpen.value = true

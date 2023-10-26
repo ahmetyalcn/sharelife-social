@@ -22,7 +22,7 @@ export const useMainStore = defineStore("main", () => {
   async function getAllPosts() {
     let { data, error } = await supabase
       .from('posts')
-      .select('*, profiles(*),likes(*)')
+      .select('*, profiles(*),likes(*),comments(*,profiles(*))')
       .order('shared_date', { ascending: false })
     if (data) {
       allPosts.value = data
@@ -116,8 +116,14 @@ export const useMainStore = defineStore("main", () => {
 
   }
 
+  const clickedPost = ref({})
+  const isOpen = ref(false)
+  const openPostModal = (post) => {
+    clickedPost.value = post
+    isOpen.value = true
+}
   
 
-  return { login, profile, signOut, isLogged, getUser, getAllPosts, allPosts, getUserById, deletePostById }
+  return { login, profile, signOut, isLogged, getUser, getAllPosts, allPosts, getUserById, deletePostById,openPostModal,clickedPost,isOpen }
 
 })
