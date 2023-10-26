@@ -68,7 +68,7 @@ const likePost = async (post) => {
                     }}
             </p>
 
-            <p @click="store.openPostModal(post)"
+            <p @click="session?.user ? store.openPostModal(post) :  toast.add({ title: 'You must log in to view this post', timeout: 1000, color: 'blue' })"
                 class=" border-2 rounded-full w-auto p-2 h-8 flex cursor-pointer justify-center items-center border-green-600 text-green-600 dark:text-green-600"><i
                     class="i-heroicons-chat-bubble-oval-left-ellipsis bg-green-600  dark:bg-green-600 text-2xl"></i>&nbsp;{{ post.comments.length
                     }}
