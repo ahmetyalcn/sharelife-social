@@ -6,6 +6,7 @@ const uploading = ref(false)
 
 
 const profile = ref({
+  profile_id: null,
   username: null,
   full_name: null,
   avatar_url: null,
@@ -15,29 +16,86 @@ const profile = ref({
 })
 
 onMounted(async () => {
-  const veri = await store.getUser();
-  profile.value = {
-    username: veri.username ?? null,
-    full_name: veri.full_name ?? null,
-    avatar_url: veri.avatar_url ?? null,
-    website: veri.website ?? null
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    console.error('Kullanıcı bulunamadı veya hata oluştu:', userError);
+    return;
   }
 
-})
+  const response = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('profile_id', user.id);
+
+  if (response.error) {
+    console.error('Profil bilgileri alınırken hata oluştu:', response.error);
+    return;
+  }
+
+  const veri = response.data[0];
+  if (veri) {
+    profile.value = {
+      id: veri.id, 
+      profile_id: user.id,
+      username: veri.username ?? null,
+      full_name: veri.full_name ?? null,
+      avatar_url: veri.avatar_url ?? null,
+      website: veri.website ?? null
+    };
+  } else {
+    profile.value = {
+      profile_id: user.id
+    }
+    console.error('Profil bulunamadı');
+
+  }
+});
+
+
 
 async function submit(event) {
-  console.log('profile.value', profile.value)
-  const { data, error } = await supabase
-    .from('profiles')
-    .upsert(profile.value)
-    .select()
 
-  if (data) {
-    store.getUser()
-    store.getAllPosts()
-    router.push('/')
+  if (profile.value.id) {
+    const { data, error } = await supabase
+      .from('profiles')
+      .update({
+        username: profile.value.username,
+        full_name: profile.value.full_name,
+        avatar_url: profile.value.avatar_url,
+        website: profile.value.website
+      })
+      .eq('id', profile.value.id) 
+      .select();
+
+    if (error) {
+      console.error('Güncelleme sırasında hata oluştu:', error);
+      return;
+    }
+  } else {
+    const { data, error } = await supabase
+      .from('profiles')
+      .insert({
+        profile_id: profile.value.profile_id,
+        username: profile.value.username,
+        full_name: profile.value.full_name,
+        avatar_url: profile.value.avatar_url,
+        website: profile.value.website
+      })
+      .select();
+
+    if (error) {
+      console.error('Yeni kayıt oluşturulurken hata oluştu:', error);
+      return;
+    }
+
+    store.getUser(); 
   }
+
+  store.getAllPosts(); 
+  router.push('/');
 }
+
 
 
 async function uploadAvatar(event) {
@@ -55,13 +113,11 @@ async function uploadAvatar(event) {
 
   try {
     if (store.profile.avatar_url) {
-      const path = store.profile.avatar_url.split("https://aravmhezjrpmloycmqbt.supabase.co/storage/v1/object/public/avatars/");
+      const path = store.profile.avatar_url.split("https://uwdvspydufaygysqpmlm.supabase.co/storage/v1/object/public/avatars/");
       const { data, error } = await supabase
         .storage
         .from('avatars')
         .remove([path[1]])
-
-        console.log('data', data)
       if (error) {
         console.error(error.message);
         return;
@@ -73,13 +129,12 @@ async function uploadAvatar(event) {
         .upload(`avatars/${Date.now()}_${file.name}`, file);
 
       if (error) {
-        // Hata işleme
         console.error(error.message);
         return;
       }
 
       if (data) {
-        profile.value.avatar_url = "https://aravmhezjrpmloycmqbt.supabase.co/storage/v1/object/public/avatars/" + data.path;
+        profile.value.avatar_url = "https://uwdvspydufaygysqpmlm.supabase.co/storage/v1/object/public/avatars/" + data.path;
       }
 
   } finally {

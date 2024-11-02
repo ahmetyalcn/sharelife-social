@@ -7,13 +7,13 @@ const pcPath = ref("")
 const isOpen = ref(false)
 
 
-   const { data: { session }, } = await supabase.auth.getSession()
+   const veri = await store.getUser();
 
 
 const post = reactive({
     shared_text: "",
     shared_photo: "",
-    profile_id: session?.user.id
+    profile_id: veri.id
 });
 
 async function sendData() {
@@ -29,7 +29,6 @@ async function sendData() {
             post.shared_photo = ""
             pcPath.value = ""
             toast.add({ title: "Successfully posted", timeout: 1000, color: "green" })
-            console.log('data', data)
             store.getAllPosts()
         }
     }else{
@@ -46,9 +45,7 @@ async function uploadPhoto(event) {
             .from('avatars')
             .upload(`posts/${file.name}_${Date.now()}`, file);
         if (data) {
-            console.log('Photo uploaded:', data);
-            post.shared_photo = "https://aravmhezjrpmloycmqbt.supabase.co/storage/v1/object/public/avatars/" + data.path;
-            console.log('post.shared_photo', post)
+            post.shared_photo = "https://uwdvspydufaygysqpmlm.supabase.co/storage/v1/object/public/avatars/" + data.path;
 
             toast.add({ title: "Successfully upload", timeout: 1000, color: "green" })
            

@@ -13,19 +13,19 @@
 
                     </div>
 
-                    <div class="flex items-center justify-center">
-                        <div class="p-4">
-
-                            <div class="my-4">
-                                <span> {{ store.clickedPost.shared_text }}</span>
-                                <img class=" w-full border-2 h-full max-h-[400px] mt-4"
-                                    :src="store.clickedPost.shared_photo" alt="">
-
-                            </div>
-
+                    <div class="flex flex-col items-start justify-center p-4">
+                        <div class="my-4">
+                            <span>{{ store.clickedPost.shared_text }}</span>
                         </div>
 
+                        <div class="flex justify-center w-full mt-4">
+                            <img v-if="store.clickedPost.shared_photo" 
+                                class="w-full border-2 h-full max-h-[400px]"
+                                :src="store.clickedPost.shared_photo" 
+                                alt="">
+                        </div>
                     </div>
+
                     <div class="flex justify-between text-sm text-gray-600 dark:text-gray-300 mt-2">
                         <p></p>
                         <p>{{ formatDate(store.clickedPost.shared_date) }}</p>

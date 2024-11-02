@@ -7,13 +7,14 @@ const supabase = useSupabaseClient()
 
 
 const { data: { session }, } = await supabase.auth.getSession();
+const veri = await store.getUser();
 
 const likePost = async (post) => {
  
 
 
     if (session?.user) {
-        const like = post.likes.find(obj => obj.profile_id === session.user.id);
+        const like = post.likes.find(obj => obj.profile_id === veri.id);
         if (like) {
             const likeIndex = post.likes.indexOf(like);
             post.likes.splice(likeIndex, 1);
@@ -24,12 +25,12 @@ const likePost = async (post) => {
                 .eq('post_id', post.id)
 
         } else {
-            post.likes.push({ profile_id: session.user.id });
+            post.likes.push({ profile_id: veri.id });
 
             await supabase
                 .from("likes")
                 .insert({
-                    profile_id: session.user.id,
+                    profile_id: veri.id,
                     post_id: post.id
                 }).then(() => console.log('post.likes', post))
 
@@ -48,13 +49,15 @@ const likePost = async (post) => {
 <template>
     <div class="my-3">
         <span> {{ post.shared_text }}</span>
-        <img v-if="post.shared_photo" class="rounded-lg w-full border-2 mt-4 object-cover h-60 cursor-pointer"
-        @click="session?.user ? store.openPostModal(post) : toast.add({ title: 'You must log in to view this post', timeout: 1000, color: 'blue' })"
-         :src="post.shared_photo" alt="">
+        <img v-if="post.shared_photo" 
+     class="rounded-lg w-full border-2 mt-4 object-cover h-60 cursor-pointer"
+     @click="session?.user ? store.openPostModal(post) : toast.add({ title: 'You must log in to view this post', timeout: 1000, color: 'blue' })"
+     :src="post.shared_photo" 
+     alt="">
 
         <div class="flex items-center justify-between text-sm text-gray-600 dark:text-gray-300 mt-2">
             <div class="flex gap-2">
-                <p v-if="!!post.likes.find(like => like.profile_id === session?.user.id)" @click="likePost(post)"
+                <p v-if="!!post.likes.find(like => like.profile_id === veri?.id)" @click="likePost(post)"
                     class="bg-pink-700 border-2 text-white rounded-full w-auto p-2 cursor-pointer h-8 flex justify-center items-center">
                     <i class="i-heroicons-hand-thumb-up  text-2xl"></i>&nbsp;{{ post.likes.length }}
                 </p>

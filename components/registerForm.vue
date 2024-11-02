@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const router = useRouter()
 const toast = useToast()
+const store = useMainStore()
 
 import type { FormError, FormSubmitEvent } from '@nuxt/ui/dist/runtime/types'
 const state = ref({
@@ -19,7 +20,8 @@ async function submit(event: FormSubmitEvent<any>) {
     if(error){
         toast.add({ title: error.message, color:"red" })
     }else{
-        router.push("/confirm")
+        store.logged(true); 
+        router.push("/profile/edit");
     }
 }
 </script>

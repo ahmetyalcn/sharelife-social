@@ -4,12 +4,13 @@ const supabase = useSupabaseClient()
 const toast = useToast()
 const store = useMainStore();
 const { data: { session }, } = await supabase.auth.getSession()
+const veri = await store.getUser();
 
 
 const comment = reactive({
     content: "",
     post_id: store.clickedPost.id,
-    profile_id: session?.user.id,
+    profile_id: veri.id,
    
 });
 
@@ -25,10 +26,8 @@ async function sendData() {
         avatar_url:store.profile.avatar_url,
         username:store.profile.username
     }})
-            console.log('store.clickedPost.comments', store.clickedPost.comments)
             comment.content= "";
             toast.add({ title: "Successfully shared", timeout: 1000, color: "green" })
-            console.log('data', data)
 
         }
     }else{

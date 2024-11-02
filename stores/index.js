@@ -5,8 +5,8 @@ export const useMainStore = defineStore("main", () => {
   const supabase = useSupabaseClient()
   const router = useRouter();
   const isLogged = ref(false);
-  const toast = useToast()
-  const allPosts = ref([])
+  const toast = useToast();
+  const allPosts = ref([]);
 
   onMounted(async () => {
     const { data: { session }, } = await supabase.auth.getSession()
@@ -19,6 +19,9 @@ export const useMainStore = defineStore("main", () => {
 
   })
 
+  async function logged(val) {
+    isLogged.value = val;
+  }
   async function getAllPosts() {
     let { data, error } = await supabase
       .from('posts')
@@ -49,7 +52,6 @@ export const useMainStore = defineStore("main", () => {
       toast.add({ title: 'Login information is not correct', timeout: 1000, color: "red" })
     }
 
-
   };
   async function getUserById(id) {
     const response = await supabase
@@ -65,7 +67,7 @@ export const useMainStore = defineStore("main", () => {
       .delete()
       .eq('id', id)
 
-    const path = imageUrl.split("https://aravmhezjrpmloycmqbt.supabase.co/storage/v1/object/public/avatars/");
+    const path = imageUrl.split("https://uwdvspydufaygysqpmlm.supabase.co/storage/v1/object/public/avatars/");
 
     const response2 = await supabase
       .storage
@@ -78,16 +80,16 @@ export const useMainStore = defineStore("main", () => {
 
   }
   async function getUser() {
+    
     try {
       const { data: { user } } = await supabase.auth.getUser()
+      
       if (user) {
-
         fetchedData.value = user;
         const response = await supabase
           .from('profiles')
           .select('*')
-          .eq('id', user.id)
-
+          .eq('profile_id', user.id)
         if (response.data && response.data.length > 0) {
           profile.value = { ...response.data[0], email: user.email }
         } else {
@@ -110,7 +112,6 @@ export const useMainStore = defineStore("main", () => {
         })
         .then(res => router.push("/login"));
     } catch (error) {
-      console.log('error', error)
     }
 
 
@@ -124,6 +125,6 @@ export const useMainStore = defineStore("main", () => {
 }
   
 
-  return { login, profile, signOut, isLogged, getUser, getAllPosts, allPosts, getUserById, deletePostById,openPostModal,clickedPost,isOpen }
+  return { login, profile, signOut, isLogged,logged, getUser, getAllPosts, allPosts, getUserById, deletePostById,openPostModal,clickedPost,isOpen }
 
 })
