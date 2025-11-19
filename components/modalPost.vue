@@ -33,7 +33,7 @@
                 </template>
                 <span class="font-bold text-lg border-b-2">Comments</span> <br>
                 <ul class="mt-4">
-                    <AddComment/>
+                    <AddComment v-if="store.isLogged" />
 
                     <li v-for="(comment, index) in store.clickedPost.comments" :key="index" class="flex items-center gap-4 mb-4">
                         <UAvatar size="sm" :src="comment.profiles.avatar_url" />
@@ -49,7 +49,6 @@
 </template>
 <script setup>
 const store = useMainStore()
-
 const { formatDate } = useUtils()
 
 </script>
