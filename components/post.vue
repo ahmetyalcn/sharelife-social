@@ -51,7 +51,7 @@ const likePost = async (post) => {
         <span> {{ post.shared_text }}</span>
         <img v-if="post.shared_photo" 
      class="rounded-lg w-full border-2 mt-4 object-cover h-60 cursor-pointer"
-     @click="session?.user ? store.openPostModal(post) : toast.add({ title: 'You must log in to view this post', timeout: 1000, color: 'blue' })"
+     @click="store.openPostModal(post)"
      :src="post.shared_photo" 
      alt="">
 
@@ -70,7 +70,7 @@ const likePost = async (post) => {
                     }}
                 </p>
 
-                <p @click="session?.user ? store.openPostModal(post) : toast.add({ title: 'You must log in to view comments', timeout: 1000, color: 'blue' })"
+                <p @click="store.openPostModal(post)"
                     class=" border-2 rounded-full w-auto p-2 h-8 flex cursor-pointer justify-center items-center border-green-600 text-green-600 dark:text-green-600">
                     <i
                         class="i-heroicons-chat-bubble-oval-left-ellipsis bg-green-600  dark:bg-green-600 text-2xl"></i>&nbsp;{{
